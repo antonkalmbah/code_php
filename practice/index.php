@@ -101,11 +101,40 @@
         echo "<br>";
 
         // функции
-        function longdate($timestamp)
+        function longdate($timestamp) // переменная внутри выступает как аргумент, который мы "выдумываем" и используем дальше в коде
         {
-            return date("l F jS Y", $timestamp);
+            return date("d:m:Y", $timestamp); // в кавычках мы указываем формат даты с символом между (у меня ":")
         }
         echo longdate(time());
+        echo "<br>";
+
+        // области видимости переменных
+        $temp = "Дата: ";
+        echo $temp.longdate(time());
+        echo "<br>";    
+
+        // статические переменные. нужны, чтобы значение перемнной сохранялось внутри конкректной функции
+        function static_num() {
+            static $count = 0;
+            echo $count;
+            $count++;
+        }
+
+        static_num(); // 0
+        static_num(); // 1
+        static_num(); // 2
+        static_num(); // 3
+        echo "<br>";   
+
+        // Суперглобальные переменные и проблемы безопасности
+        // $came_from = htmlentities($_SERVER['HTTP_REFERRER']); // не работает в данном коде
+
+        // булевы значения
+        echo "a:['True']<br>";
+        echo "b:['False']<br>";
+        echo "c:[".(20>9)."]<br>"; // покажет 1
+        echo "d:[".(20<9)."]<br>"; // ничего не покажет
+        echo "<br>";  
 
     ?>
 </body>
