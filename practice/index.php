@@ -129,12 +129,56 @@
         // Суперглобальные переменные и проблемы безопасности
         // $came_from = htmlentities($_SERVER['HTTP_REFERRER']); // не работает в данном коде
 
-        // булевы значения
+        // булевы значения + операторы сравнения
         echo "a:['True']<br>";
         echo "b:['False']<br>";
         echo "c:[".(20>9)."]<br>"; // покажет 1
         echo "d:[".(20<9)."]<br>"; // ничего не покажет
-        echo "<br>";  
+        echo "<br>";
+
+        // операторы равенства
+        $a = 1000;
+        $b = +1000;
+        // if($a == $b) echo "1"; echo "<br>";
+        // if($a === $b) echo "2";
+        if($a != $b) echo "1"; 
+        else echo "2";
+        echo "<br>";
+
+        // логические переменные
+        $c = 1;
+        $d = 0;
+        echo ($c AND $d)."<br>"; // нужно чтобы оба операторы были истинными, поэтому ничего не будет при выводе
+        echo ($c OR $d)."<br>"; // одно из значений истинно
+        echo ($c XOR $d)."<br>";
+        echo !$c."<br>"; // логическое НЕ, поэтому TRUE (1) становится FALSE (0)
+
+        // инструкция if
+        $string = 100;
+        $numbers = 0;
+        if ($string > $numbers) {
+            echo ($numbers+=1)."<br>";
+        }
+
+        // инструкция else
+        $string = 100;
+        $numbers = 0;
+        if ($string < $numbers) {
+            echo ($numbers+=1)."<br>";
+        } else {
+            echo "Ошибка"."<br>";
+        }
+
+        // инструкция elseif
+        $string = 100;
+        $numbers = 0;
+        if ($string < $numbers) {
+            echo ($numbers+=1)."<br>";
+        } elseif ($string == 100) {
+            echo "Here's 100";
+        } else {
+            echo "Ошибка";
+        }
 
     ?>
 </body>
