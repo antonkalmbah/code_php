@@ -58,7 +58,7 @@
         $info = 'Самая обычная строчка текста без каких-либо подставлений значений в переменную $str';
         echo $info;
         echo "<br>";
-        $info_2 = "Строчка, где подставляется занчение в переменную $str";
+        $info_2 = "Строчка, где подставляется значение в переменную $str";
         echo $info_2;
         echo "<br>";
 
@@ -177,8 +177,98 @@
         } elseif ($string == 100) {
             echo "Here's 100";
         } else {
-            echo "Ошибка";
+            echo "Ошибка"."<br>";
         }
+        echo "<br>";
+
+        // взамен if...elseif можно использовать конструкция switch\case\break
+        $page = 13;
+        switch ($page) {
+            case "1":
+                echo "Один";
+                break;
+            case "2":
+                echo "Два";
+                break;
+            case "3":
+                echo "Три";
+                break;
+            
+        // команда по-умолчанию, когда ничего не подошло
+            default:
+                echo "Ничего не нашёл";
+                break; // в данном случае, break необязателен, тк на нём всё закончится, но было бы нужно, если бы после него шли вырианты case
+        }
+        echo "<br>";
+
+        // альтернативный синтаксим switch
+        switch ($page): 
+            case "1":
+                echo "Один";
+                break;
+            default:
+                echo "Ничего не нашёл_2";
+                break; // в данном случае, break необязателен, тк на нём всё закончится, но было бы нужно, если бы после него шли вырианты case
+        endswitch;
+        echo "<br>";
+
+        // использование оператора ?
+        $fuel = 1;
+        $result =  $fuel > 1 ? "Ок" : "Not";
+        echo $result;
+        echo "<br>";
+
+        // конструкция while
+        $r = 10;
+        while ($r < 15) {
+            echo "Ok"."\n";
+            ++$r;
+        }
+        echo "<br>";
+
+        $q = 1;
+        while ($q <= 15) {
+            echo $q."\n";
+            ++$q;
+        }
+
+        // конструкция do ... while
+        $u = 1;
+        do {
+            echo $u++."<br>";
+        } while (
+            $u <= 10
+        );
+        echo "<br>";
+
+        // инструкция for
+        for (
+            $count = 1; // выражение инициализации
+            $count <= 12; // выражение условия
+            ++$count // выражение модификации
+        ) {
+            echo $count;
+            echo "<br>";
+        }
+        echo "END"."<br>";
+
+        for (
+            $i = 1, $j = 1;
+            $i + $j < 10;
+            $i++, $j++
+        ) {
+            echo $i."<br>".$j;
+        }
+
+        // цикл for можно прекратить с помощью break
+        $fp = fopen("./exapmle.txt", 'wb');
+
+        for ($i = 0; $i <= 100; ++$i) {
+            $fw = fwrite($fp, "Word\n");
+            if ($fw == FALSE) break;
+        }
+
+        fclose($fp);
 
     ?>
 </body>
