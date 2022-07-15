@@ -298,8 +298,84 @@
 
         $word_fix = ucfirst("change first word in upper"); // перевод в верхний регистр 1 буквы предложения, русский не работает
         echo $word_fix;
+        echo "<hr>";
 
-        
+        // возвращение массива
+        $names = fix_name("Anton", "Sasha", "Yulia");
+
+        function fix_name($n1,$n2,$n3) {
+            echo $n1." ".$n2." ".$n3;
+        }
+        echo "<hr>";    
+
+        // создание ссылки с помощью &
+        $name_1 = 'Anton';
+        $name_2 = 'Ilya';
+        $name_3 = 'Pety';
+        // echo $name_1." ".$name_2." ".$name_3; // строка работает, пропуск, чтобы не мешала
+        echo "<hr>";
+
+        fix_name_2($name_1, $name_2, $name_3);
+
+        function fix_name_2(&$n1, &$n2, &$n3){
+            echo $n1." ".$n2." ".$n3;
+        }
+        echo "<hr>";
+
+        // работа с глобальной переменной
+        $global_a = "A";
+        $global_b = "B";
+        $global_c = "C";
+
+        fix_name_3($global_a, $global_b, $global_c);
+
+        function fix_name_3() {
+            global $global_a; echo $$global_a = strtolower($global_a)."<br>";
+            global $global_b; echo $global_b = strtolower($global_b)."<br>";
+            global $global_c; echo $global_c = strtolower($global_c)."<br>";
+        }
+        echo "<hr>";
+
+        // использование include (включить) и include_once. Будут сделана одна попытка поиска файла
+        include "./hello_page.php";
+        echo "Вверху строчка с использованием функции include";
+        // фунция include_once нужна, чтобы не было повторного переиспользования функции, когда, например, функция,
+        // которую мы вызвали содержится в другой функции, которую мы вызываем
+        // Рекомендация: пользоваться только include_once для отсутсвия повторов
+        echo "<hr>";
+
+        // использование require and require_once. Если файл не будет найдет, то прогорамма не будет выполняться
+        require_once "./goodbye_page.php";
+        echo "Вверху строка с require_once";
+        echo "<hr>";
+        // Рекомендация: пользоваться только require_once для отсутсвия повторов
+
+        // проверка существования функции с помощью function_exist
+        if (function_exists("fix_name_3")) {
+            echo "Существует";
+        } else {
+            echo "Не существует";
+        }
+        echo "<hr>";
+
+        // использование классов
+        $object = new User; // с помощью new происходит создание объекта, также сюда можно ("добавить", "аргументы")
+        print_r($object); // _r нужна, чтобы был в более "читабельном" виде
+
+        class User {
+            public $name, $password; // функции достпуны отовсюду
+
+            function save_user () {
+                echo "Код"."<br>";
+            }
+        }
+        echo "<br>";
+
+        // доступ к файлам
+        $object->name = "Anton";
+        $object->password = "123456";
+        $object->save_user();
+        print_r($object);
     ?>
 </body>
 </html>
