@@ -363,7 +363,7 @@
         print_r($object); // _r нужна, чтобы был в более "читабельном" виде
 
         class User {
-            public $name, $password; // функции достпуны отовсюду
+            public $name, $password; // функции доступны отовсюду
 
             function save_user () {
                 echo "Код"."<br>";
@@ -376,6 +376,209 @@
         $object->password = "123456";
         $object->save_user();
         print_r($object);
+
+        echo "<hr>";
+
+        // Клонирование объектов. Используем clone, чтобы переменная не повторялась.
+        $object1 = new User();
+        $object1->name = 'Lily';
+        $object2 = clone $object1;
+        $object2->name = 'Jo';
+
+        echo "object1 name = ".$object1->name."<br>";  // в кавычках указываем текст, который будет выводиться, а не переменную
+        echo "object2 name = ".$object2->name;  // в кавычках указываем текст, который будет выводиться, а не переменную
+
+
+        // Конструктор. Когда нужно добавить классу некоторые аргументы
+        class Abon {
+            // установление аргументов в PHP 5 принято с __
+            function __construct ($param1, $param2) { 
+                $param1 = "Параметр 1";
+                $param2 = "Параметр 2";
+            }
+        }
+
+        // Деструкторы. Вызывается, когда сценарий подошёл к концу или функция выполняется в последний раз
+        class Abon_2 {
+            // установление аргументов в PHP 5 принято с __
+            function __destruct () { 
+                // коде деструктора
+            }
+        }
+
+        echo "<hr>";
+
+        // Написание методов. Метод $this для доступа к свойству текущего объекта
+        class Person {
+            public $name, $password;
+
+            function get_password() {
+                return $this->password;
+            }
+            function get_name() {
+                return $this->name;
+            }
+        }
+
+        $object4 = new Person();
+        $object4->name = "yoo";
+        $object4->password = "yoola";
+        $pass_w = $object4->get_password();
+        $name_w = $object4->get_name();
+
+        print_r("Логин пользователя 4: ".$pass_w);
+        echo "<br>";
+        print_r("Пароль пользователя 4: ".$name_w);
+
+        echo "<hr>";
+
+        // статические методы доступные только для самого класса, а не объектов, которые внутри них
+        Person_2 :: pwd_sting ();
+        
+        class Person_2 {
+            static function pwd_sting() {
+                echo "Введите что-нибудь";
+            }
+        }
+
+        echo "<hr>";
+
+        // объявление свойств: явное - происходит непосредственно внутри класса, неявное - просиходит в самом объекте. Явное объявление
+        // в апрактике лучше.
+        // class Test
+        // {
+        //     public $name = "Paul Smith"; // Допустимое
+        //     public $age = 42; // Допустимое
+            // public $time = time(); // Недопустимое — вызывает функцию
+            // public $score = $level * 2; // Недопустимое — использует выражение
+        // }
+
+        // объяление констант. с помощью self мы можем напрямую обращаться к константам, используя ::
+        Translate::lookup();
+        class Translate
+        {
+            const ENGLISH = 0;
+            const SPANISH = 1;
+            const FRENCH = 2;
+            const GERMAN = 3;
+            const RUSSIA = 4;
+        // ...
+            Static function lookup()
+            {
+                echo self::SPANISH."<br>";
+                echo self::RUSSIA;
+            }
+        }
+        
+        echo "<hr>";
+
+        // области видимости
+        class Example {
+            /* открытиые */
+            var $one = 1; // не рекомендуется, т.к. является старой
+            public $one_2 = "1_1"; // рекомендуется
+            protected $two = 2; // защищенная
+            private function example_2 () {
+                echo "Пример защищенной функции";
+            }
+        }
+
+        echo "<hr>";
+        
+        $date = new Tester();
+        echo "Test A: ".Tester::$static_frase."<br>";
+        echo "Test B: ".$date->get_frase()."<br>";
+        echo "Test C: ".$date->static_frase."<br>";
+
+        class Tester {
+            static $static_frase = "Статическое свойство";
+
+            function get_frase() {
+                return self::$static_frase;
+            }
+        }
+
+        echo "<hr>";
+
+        // наследование с помощью extends, которая дополняет класс данными из другого класса
+        $chel = new Info();
+        $chel->name = "Anton";
+        $chel->city = "Rostov";
+        $chel->email = "@yandex.cru";
+        $chel->phone = "999";
+        $chel->display();
+
+        class Per {
+            public $name, $city;
+
+            function save() {
+                echo "Save";
+            }
+        }
+
+        class Info extends Per {
+            public $email, $phone;
+
+            function display() {
+                echo "Name: ".$this->name."<br>";
+                echo "City: ".$this->city."<br>";
+                echo "Email: ".$this->email."<br>";
+                echo "Phone number: ".$this->phone."<br>";
+            }
+
+        }
+
+        echo "<hr>";
+
+        // родительский класс parent
+        $object = new Son;
+        $object->test();
+        $object->test2();
+
+        class Dad {
+            function test()
+            {
+                echo "[Class Dad] Я твой отец<br>";
+            }
+        }
+
+        class Son extends Dad {
+            function test() {
+                echo "[Class Son] Я Лука<br>";
+            }
+
+            function test2() {
+                // выводим на экран функцию из родительского класса, который "extends Dad"
+                parent::test(); 
+            }
+        }
+
+        echo "<hr>";
+
+        // констукторы подкласса
+        $object = new Tiger();
+        echo "У тигров есть...<br>";
+        echo "Мех: " . $object->fur . "<br>";
+        echo "Полосы: " . $object->stripes;
+
+        class Wildcat {
+            public $fur; // У диких кошек есть мех
+            function __construct() {
+                $this->fur = "TRUE";
+            }
+        }
+
+        class Tiger extends Wildcat {
+            public $stripes; // У тигров есть полосы
+            function __construct() {
+                parent::__construct(); // Первоочередной вызов родительского
+                // конструктора
+                $this->stripes = "TRUE";
+            }
+        }
+
+        echo "<hr>";
+
     ?>
 </body>
 </html>
