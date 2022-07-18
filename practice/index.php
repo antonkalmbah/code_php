@@ -571,13 +571,67 @@
         class Tiger extends Wildcat {
             public $stripes; // У тигров есть полосы
             function __construct() {
-                parent::__construct(); // Первоочередной вызов родительского
-                // конструктора
+                parent::__construct(); // Первоочередной вызов родительского конструктора
                 $this->stripes = "TRUE";
             }
         }
 
         echo "<hr>";
+
+        // чтобы функции не перезаписывались другой функцией, то можно воспользоваться методом final
+        $pack_obj = new Pack();
+
+        class Pack {
+            final function Pack_2() {
+                echo "Код написанный с помощью final";
+            }
+        }
+
+        echo $pack_obj->Pack_2() . "<br>";
+
+        echo "<hr>";
+
+        // использование массивов
+        $box[] = 'Слива';
+        $box[] = 'Яблоко';
+        $box[] = 'Груша';
+
+        for ($i = 0; $i < 3; ++$i){
+            echo "$i. $box[$i]<br>";
+        }
+        echo "<hr>";
+
+        // ассоциативные массивы
+        // использование индексов(ключей) и их значений
+        $box_1['red'] = 'Apple';
+        $box_1['green'] = 'Лук';
+
+        echo $box_1['green'];
+
+        echo "<hr>";
+
+        // присваивание с помощью array
+        $box_array = array(
+            'first' => 'a',
+            'second' => 'b',
+            'third' => 'c'
+        );
+        // используем =>, чтобы присвоить значение не ПЕРЕМЕННОЙ, а ИНДЕКСУ(т.е. значение 'a' находится под индексом 'first') до того момента пока
+        // он не будет перезаписан
+        echo $box_array['second'];
+        echo "<hr>";
+
+        // использование цикла foreach... as
+        foreach ($box_array as $temp => $descript) {
+            echo "$temp: $descript"."<br>";
+        }
+        // в $temp (может называться по-любому) присваиваются все значения из переменной $box_array поочерёдно
+        // в $descript (может называться по-любому) присваиваем значения, которые в функции идут после =>
+        echo "<hr>";
+
+        // использования функции list
+        list($a, $b) = array('Anton', 'Yulia');
+        echo "a=$a and b=$b";
 
     ?>
 </body>
