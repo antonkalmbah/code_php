@@ -633,6 +633,84 @@
         list($a, $b) = array('Anton', 'Yulia');
         echo "a=$a and b=$b";
 
+        echo "<hr>";
+
+        // Использование функций по работе с массивами
+        // Проверка: массив или не массив
+        echo (is_array($box_array)) ? "Массив": "Не массив";
+        echo "<br>";
+        echo (is_array($pack_obj)) ? "Массив": "Не массив";
+
+        echo "<hr>";
+
+        // узнаем кол-во элементов в массиве
+        echo count($box_array);
+
+        echo "<hr>";
+        
+        // сортировка. возвращает либо TRUE, либо FALSE
+        $sort_boxing = array(
+            '1' => 'Груша',
+            '2' => 'Яблоко',
+            '3' => 'Помидор'
+        );
+
+        echo sort($sort_boxing); // 1,2,3 и т.д.
+        echo "<br>";
+        echo rsort($sort_boxing); // 5,4,3 и т.д.
+
+        echo "<hr>";
+
+        // случайная сортировка, рандом
+        echo shuffle($sort_boxing);
+
+        echo "<hr>";
+
+        // разбиение строки на отдельные элементы массива. explode ('тут пробел, как разделитель между', 'тут сама строка, которую разделяют')
+        $mass = explode(' ','Это строка, которая нужна для раздение строки на массив, как пример');
+        print_r ($mass);
+
+        echo "<hr>";
+
+        // extract для работы с массивами через _GET and _POST
+        echo extract($_GET, EXTR_PREFIX_ALL, 'fromget');
+        echo "<br>";
+        echo extract($_POST, EXTR_PREFIX_ALL, 'fromget');
+
+        echo "<hr>";
+
+        // переделываем переменные в массив
+        $doctor = 'Doctor';
+        $worker = 'Рабочий';
+        $driver = 'Водитель';
+
+        $massive = compact("doctor", "worker", 'driver'); // переменные указываем по их названию, без $
+        print_r ($massive);
+        echo "<br>";
+
+        $massive_2 = compact(explode(' ', 'doctor worker driver'));
+        print_r ($massive_2);
+
+        echo "<hr>";
+
+        // случай, если после перебора массива нужно сделать возврат назад к 1 пункту массива
+        $res_mass = reset($massive);
+        echo $res_mass;
+
+        // если нам нужно переместить внутренний указатель на последний элемент массива
+        $end_mass = end($massive);
+        echo "<br>";
+        echo $end_mass;
+ 
+        echo "<hr>";
+
+        // функция для отображения инфо printf
+        printf('Мне %d года', 23);
+        echo "<br>";
+        printf("<span color='#%X%X%X'>Привет</span>", 65, 127, 245);
+        echo "<br>";
+        printf("Результат: $%.2f", 123.42 / 12); // вывод числа с плавающей точкой
+
     ?>
 </body>
 </html>
