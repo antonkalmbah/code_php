@@ -711,6 +711,110 @@
         echo "<br>";
         printf("Результат: $%.2f", 123.42 / 12); // вывод числа с плавающей точкой
 
+        echo "<hr>";
+
+        // 
+        echo "Дополнение строк"."<br>";
+        $frase = 'Rasmus';
+        printf("[%-120s]\n", $frase);
+
+        echo "<hr>";
+
+        // 
+        echo "Возможность преобразования без вывода на экран"."<br>";
+        $out = sprintf("Результат: $%.2f", 123.42 / 12);
+        echo $out;
+
+        echo "<hr>";
+
+        // время
+        echo time();
+        echo "<br>";
+        echo date("d.m.y")."<br>"; // внутри формат указан намеренно, чтобы день.месяц.год шли через точки и человекочитаемом формате
+
+        echo "<hr>";
+
+        // 
+        echo "Вывод времени с помощью констант в нужном формате"."<br>";
+        echo date(DATE_RSS)."<br>";
+        echo date(DATE_ATOM);
+
+        echo "<hr>";
+
+        //
+        echo "Проверка даты с помощью checkdate"."<br>";
+        $month = 9; // Сентябрь (в котором только 30 дней)
+        $day = 31; // 31-е
+        $year = 2018; // 2018
+
+        if (checkdate($month, $day, $year)) {
+            echo "True";
+        } else {
+            echo "False"; // результат будет F, т.к. в сентябре 30 дней было
+        }
+
+        echo "<hr>";
+
+        //
+        echo "Работа с файлами"."<br>";
+        echo "Проверка существования файла"."<br>";
+
+        if(file_exists('exapmle.txt')){
+            echo "T";
+        } else {
+            echo "F";
+        }
+
+        echo "<hr>";
+
+        //
+        echo "Создание и запись файла"."<br>";
+        $file_create_write = fopen('file_create_write.txt', 'w') or die('Fail');
+        $exapmle_text = 
+        "Это будет пример текста,
+        который указан в несколько строк.
+        Также он должен быть указан и файле file_create_write.txt";
+
+        fwrite($file_create_write, $exapmle_text) or die('Fail');
+        fclose($file_create_write);
+
+        echo "<hr>";
+        
+        //
+        echo "Читаем файл"."<br>";
+        $file = "./file_create_write.txt";
+        $file_open = fopen($file, "r");
+        $file_read = fread($file_open, filesize($file));
+        $file_close = fclose($file_open);
+        echo $file_read;
+        //тоже самое можно делать с помощью fgets
+
+        echo "<hr>";
+
+        //
+        echo "Копирование файлов"."<br>";
+        $file_copy = copy('./exapmle.txt', './exapmle_2.txt') or die ('fail');
+
+        echo "<hr>";
+
+        //
+        echo "Перемещение файла"."<br>";
+        $file_move = !rename('./exapmle_2.txt', './exapmle_2_new.txt');
+
+        //
+        echo "Удаление файла"."<br>";
+        $file_delete = unlink('./exapmle_123.txt');
+
+        if($file_delete == True){
+            echo "ok";
+        } else {
+            echo "no ok";
+        }
+
+        echo "<hr>";
+
+        //
+
     ?>
 </body>
 </html>
