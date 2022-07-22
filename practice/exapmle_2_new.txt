@@ -99,3 +99,5 @@ Word
 Word
 Word
 Word
+New_text
+Конструкция, которая в блоке

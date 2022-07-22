@@ -814,6 +814,51 @@
         echo "<hr>";
 
         //
+        echo "Обновление файлов";
+        $f_o = fopen("./file_create_write.txt", 'r+');
+        $f_g = fgets($f_o);
+        fseek($f_o, 0, SEEK_END);
+        fwrite($f_o, "$f_g");
+        fclose($f_o);
+
+        // добавление новой строки в конец файла
+        $f_o_my = fopen("./exapmle_2_new.txt", 'r+');
+        $f_g_my = fgets($f_o_my);
+        fseek($f_o_my, 0, SEEK_END);
+        fwrite($f_o_my, "New_text\n"); // куда добавляем, что именно добавляем
+        fclose($f_o_my);
+
+        echo "<hr>";
+
+        //
+        echo "Блокировка изменений файла с помощью flock";
+        $file_o = fopen("./exapmle_2_new.txt", 'r+');
+        $file_o_get = fgets($file_o);
+
+        if(flock($file_o, LOCK_EX)) {
+            fseek($file_o, 0, SEEK_END);
+            fwrite($file_o, "Конструкция, которая в блоке");
+            flock($file_o, LOCK_UN);
+        }
+        fclose($file_o);
+
+        echo "<hr>";
+
+        //
+        echo "Чтение файла + чтение файла из Интернета"."<pre>";
+        $file_reading = file_get_contents('./file_create_write.txt');
+        echo $file_reading."<br>";
+
+        $file_from_network = file_get_contents("Указываем ссылку на сайт");
+        echo $file_from_network;
+
+        echo "<hr>";
+
+        //
+        echo "Загрузка файлов на вэб-сервер";
+        // Пример указан в файле upload.php.
+        // Важно заметить, что переменная $_FILE является глобальной и принимает в себя загруженный post-запросом файл. Если
+        // его соответственно нет, то она просто игнорируется
 
     ?>
 </body>
